@@ -95,9 +95,9 @@ export const ReportExport: React.FC<ReportExportProps> = ({ run }) => {
 
           <button
             onClick={handlePrintPdf}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl btn-primary text-obsidian text-xs font-bold shadow-sm transition cursor-pointer"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl btn-primary text-white text-xs font-bold shadow-sm transition cursor-pointer"
           >
-            <Printer className="w-4 h-4 text-obsidian" />
+            <Printer className="w-4 h-4 text-white" />
             <span>Download / Print PDF</span>
           </button>
         </div>

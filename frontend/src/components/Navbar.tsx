@@ -46,21 +46,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-3 cursor-pointer group"
             onClick={() => setCurrentTab('new')}
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-cyan-500/20 border border-cyan-200/40 group-hover:scale-105 transition-transform duration-200">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/25 border border-emerald-300/40 group-hover:scale-105 transition-transform duration-200">
               <ShieldCheck className="w-5 h-5 text-white" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-lg tracking-tight text-[#EAE8F5]">
+                <span className="font-extrabold text-lg tracking-tight text-[#ECFDF5]">
                   APISentry
                 </span>
-                <span className="text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full bg-blue-950/50 text-[#7FD4FF] border border-[#7FD4FF]/30 backdrop-blur-md shadow-sm flex items-center gap-1.5 font-mono">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#7FD4FF] animate-pulse" />
+                <span className="text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-950/60 text-[#00E599] border border-[#00E599]/35 backdrop-blur-md shadow-sm flex items-center gap-1.5 font-mono">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00E599] animate-pulse" />
                   DEFENSE NETWORK
                 </span>
               </div>
-              <p className="text-[11px] text-[#A9A6C4] font-mono flex items-center gap-1.5 mt-0.5">
-                <span>API Conformance & Multi-Tenant Isolation</span>
+              <p className="text-[11px] text-[#94A3B8] font-mono flex items-center gap-1.5 mt-0.5">
+                <span>API Conformance &amp; Multi-Tenant Isolation</span>
               </p>
             </div>
           </div>
@@ -76,16 +76,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => setCurrentTab(item.id as TabType)}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 relative ${
                     isActive
-                      ? 'bg-gradient-to-r from-blue-600/75 to-cyan-500/75 text-white font-bold backdrop-blur-md shadow-md shadow-cyan-500/20 border border-cyan-300/40'
-                      : 'text-[#A9A6C4] hover:text-white hover:bg-white/10 backdrop-blur-sm border border-transparent'
+                      ? 'bg-gradient-to-r from-emerald-600/80 to-teal-500/80 text-white font-bold backdrop-blur-md shadow-md shadow-emerald-500/25 border border-emerald-300/40'
+                      : 'text-[#94A3B8] hover:text-[#ECFDF5] hover:bg-emerald-500/10 backdrop-blur-sm border border-transparent'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#7FD4FF]'}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-[#00E599]'}`} />
                   <span>{item.label}</span>
                   {item.badge && (
                     <span className="flex h-2 w-2 relative">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
                     </span>
                   )}
                 </button>
@@ -97,9 +97,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-3">
             {/* Active Run pill */}
             {activeRun && (
-              <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-xl card text-xs backdrop-blur-md border border-cyan-400/20">
-                <span className="text-[#A9A6C4] font-medium">Run:</span>
-                <span className="font-mono text-[#7FD4FF] font-bold truncate max-w-[100px]" title={activeRun.id}>
+              <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-xl card text-xs backdrop-blur-md border border-emerald-400/25">
+                <span className="text-[#94A3B8] font-medium">Run:</span>
+                <span className="font-mono text-[#00E599] font-bold truncate max-w-[100px]" title={activeRun.id}>
                   {activeRun.id.slice(0, 8)}...
                 </span>
                 <span
@@ -107,7 +107,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     activeRun.status === 'COMPLETED'
                       ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                       : activeRun.status === 'RUNNING'
-                      ? 'bg-blue-500/20 text-cyan-300 animate-pulse border border-cyan-400/40'
+                      ? 'bg-emerald-500/20 text-[#00E599] animate-pulse border border-[#00E599]/40'
                       : 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
                   }`}
                 >
@@ -117,13 +117,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
 
             {/* Backend Status indicator */}
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full card text-[11px] font-mono backdrop-blur-md border border-cyan-400/20">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full card text-[11px] font-mono backdrop-blur-md border border-emerald-400/25">
               <Circle
                 className={`w-2.5 h-2.5 fill-current ${
                   backendOnline ? 'text-emerald-400 shadow-sm' : 'text-rose-500'
                 }`}
               />
-              <span className="text-[#A9A6C4] hidden sm:inline font-medium">
+              <span className="text-[#94A3B8] hidden sm:inline font-medium">
                 {backendOnline ? 'Telemetry Active' : 'Offline'}
               </span>
             </div>

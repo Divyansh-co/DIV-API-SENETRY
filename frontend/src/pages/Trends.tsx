@@ -79,19 +79,19 @@ export const Trends: React.FC<TrendsProps> = ({ onSelectRun }) => {
             {/* SVG Trend Graph */}
             <div className="h-56 w-full relative">
               <svg className="w-full h-full overflow-visible" viewBox="0 0 800 200" preserveAspectRatio="none">
-                {/* Horizontal Grid lines (Hairline Bronze) */}
-                <line x1="0" y1="20" x2="800" y2="20" stroke="rgba(176, 141, 87, 0.18)" strokeDasharray="4 4" />
-                <line x1="0" y1="70" x2="800" y2="70" stroke="rgba(176, 141, 87, 0.18)" strokeDasharray="4 4" />
-                <line x1="0" y1="120" x2="800" y2="120" stroke="rgba(176, 141, 87, 0.18)" strokeDasharray="4 4" />
-                <line x1="0" y1="170" x2="800" y2="170" stroke="rgba(176, 141, 87, 0.18)" strokeDasharray="4 4" />
+                {/* Horizontal Grid lines (Hairline Jade) */}
+                <line x1="0" y1="20" x2="800" y2="20" stroke="rgba(0, 229, 153, 0.18)" strokeDasharray="4 4" />
+                <line x1="0" y1="70" x2="800" y2="70" stroke="rgba(0, 229, 153, 0.18)" strokeDasharray="4 4" />
+                <line x1="0" y1="120" x2="800" y2="120" stroke="rgba(0, 229, 153, 0.18)" strokeDasharray="4 4" />
+                <line x1="0" y1="170" x2="800" y2="170" stroke="rgba(0, 229, 153, 0.18)" strokeDasharray="4 4" />
 
                 {/* Y-axis labels */}
-                <text x="5" y="24" fill="#A8A6A1" fontSize="10" fontFamily="monospace">100%</text>
-                <text x="5" y="74" fill="#A8A6A1" fontSize="10" fontFamily="monospace">75%</text>
-                <text x="5" y="124" fill="#A8A6A1" fontSize="10" fontFamily="monospace">50%</text>
-                <text x="5" y="174" fill="#A8A6A1" fontSize="10" fontFamily="monospace">25%</text>
+                <text x="5" y="24" fill="#94A3B8" fontSize="10" fontFamily="monospace">100%</text>
+                <text x="5" y="74" fill="#94A3B8" fontSize="10" fontFamily="monospace">75%</text>
+                <text x="5" y="124" fill="#94A3B8" fontSize="10" fontFamily="monospace">50%</text>
+                <text x="5" y="174" fill="#94A3B8" fontSize="10" fontFamily="monospace">25%</text>
 
-                {/* Plot Trend Line (Brushed Bronze) */}
+                {/* Plot Trend Line (Radiant Jungle Jade) */}
                 {completedRuns.length > 1 && (
                   <path
                     d={completedRuns
@@ -102,7 +102,7 @@ export const Trends: React.FC<TrendsProps> = ({ onSelectRun }) => {
                       })
                       .join(' ')}
                     fill="none"
-                    stroke="#B08D57"
+                    stroke="#00E599"
                     strokeWidth="3.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -113,12 +113,12 @@ export const Trends: React.FC<TrendsProps> = ({ onSelectRun }) => {
                 {completedRuns.map((r, i) => {
                   const x = completedRuns.length === 1 ? 400 : 50 + (i / (completedRuns.length - 1)) * 720;
                   const y = 170 - (r.compliance_score / 100) * 150;
-                  const pointColor = r.compliance_score >= 80 ? '#4ADE80' : r.compliance_score >= 50 ? '#FBBF24' : '#F87171';
+                  const pointColor = r.compliance_score >= 80 ? '#00E599' : r.compliance_score >= 50 ? '#FBBF24' : '#F87171';
 
                   return (
                     <g key={r.id} className="cursor-pointer" onClick={() => onSelectRun(r)}>
-                      <circle cx={x} cy={y} r="6" fill="#0E0F12" stroke={pointColor} strokeWidth="2.5" />
-                      <text x={x} y={y - 12} fill="#EDEBE6" fontSize="11" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+                      <circle cx={x} cy={y} r="6" fill="#020907" stroke={pointColor} strokeWidth="2.5" />
+                      <text x={x} y={y - 12} fill="#ECFDF5" fontSize="11" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
                         {r.compliance_score}%
                       </text>
                     </g>

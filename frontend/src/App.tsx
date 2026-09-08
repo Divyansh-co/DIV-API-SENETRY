@@ -16,10 +16,10 @@ export const App: React.FC = () => {
   const [endpointFilter, setEndpointFilter] = useState<string | undefined>(undefined);
   const [backendOnline, setBackendOnline] = useState(true);
 
-  // Set default theme to Deep Obsidian & Brushed Bronze
+  // Set default theme to Jungle Jade & Dark Theme
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', 'obsidian-bronze');
-    localStorage.setItem('apisentry_theme', 'obsidian-bronze');
+    document.documentElement.setAttribute('data-theme', 'jungle-jade');
+    localStorage.setItem('apisentry_theme', 'jungle-jade');
   }, []);
 
   // Check health on mount and every 10s
@@ -64,11 +64,11 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen text-bone flex flex-col font-sans selection:bg-bronze/30 selection:text-bone relative">
+    <div className="min-h-screen text-bone flex flex-col font-sans selection:bg-jade-500/30 selection:text-bone relative">
       {/* Reactive Particle Mesh Canvas (Idle drift, Lerp mouse repulsion, Scroll parallax) */}
       <AnimatedBackground />
 
-      {/* Obsidian & Bronze Navbar */}
+      {/* Jungle Jade & Dark Navbar */}
       <Navbar
         currentTab={currentTab}
         setCurrentTab={(tab) => {
@@ -104,17 +104,17 @@ export const App: React.FC = () => {
         {currentTab === 'export' && <ReportExport run={activeRun} />}
       </main>
 
-      {/* Persistent Obsidian & Bronze Footer */}
-      <footer className="border-t border-bronze-hairline bg-obsidian py-4 px-6 text-center text-xs text-warmash font-mono transition-colors relative z-10">
+      {/* Persistent Jungle Jade & Dark Footer */}
+      <footer className="border-t border-jade-500/20 bg-dark-bg/80 backdrop-blur-md py-4 px-6 text-center text-xs text-warmash font-mono transition-colors relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <span className="flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-bronze" />
+            <span className="inline-block w-2 h-2 rounded-full bg-jade-neon shadow-sm shadow-jade-neon/50" />
             <span className="text-bone font-semibold">APISentry</span>
             <span className="text-warmash">&bull; API Contract & Data-Consistency Compliance Suite</span>
           </span>
           <span className="text-warmash font-medium flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-bronze" />
-            <span>Deep Obsidian &amp; Brushed Bronze Edition</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-jade-neon" />
+            <span>Jungle Jade &amp; Dark Theme Edition</span>
           </span>
         </div>
       </footer>

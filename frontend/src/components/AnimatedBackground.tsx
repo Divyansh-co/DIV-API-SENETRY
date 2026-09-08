@@ -92,12 +92,12 @@ export const AnimatedBackground: React.FC = () => {
           cx + ring.r,
           cy + ring.r
         );
-        grad.addColorStop(0, 'rgba(168, 120, 255, 0.55)');
-        grad.addColorStop(1, 'rgba(90, 170, 255, 0.15)');
+        grad.addColorStop(0, 'rgba(0, 255, 170, 0.7)');
+        grad.addColorStop(1, 'rgba(16, 185, 129, 0.25)');
         context.beginPath();
         context.arc(cx, cy, ring.r, angle, angle + ring.span);
         context.strokeStyle = grad;
-        context.lineWidth = ring.w;
+        context.lineWidth = ring.w * 1.3;
         context.stroke();
       });
     }
@@ -119,14 +119,14 @@ export const AnimatedBackground: React.FC = () => {
         else context.lineTo(x, y);
       }
       context.closePath();
-      context.strokeStyle = `rgba(130, 190, 255, ${alpha})`;
-      context.lineWidth = 1.2;
+      context.strokeStyle = `rgba(0, 255, 170, ${Math.min(1, alpha + 0.15)})`;
+      context.lineWidth = 1.3;
       context.stroke();
     }
 
     function drawIcon(context: CanvasRenderingContext2D, kind: string, px: number, py: number, alpha: number) {
-      context.strokeStyle = `rgba(200, 225, 255, ${alpha})`;
-      context.lineWidth = 1.2;
+      context.strokeStyle = `rgba(230, 255, 245, ${Math.min(1, alpha + 0.2)})`;
+      context.lineWidth = 1.3;
       context.beginPath();
       if (kind === 'user') {
         context.arc(px, py - 5, 4, 0, Math.PI * 2);
@@ -188,12 +188,12 @@ export const AnimatedBackground: React.FC = () => {
         const b = projected[j];
         if (!a || !b) return;
         const avgZ = (a.z + b.z) / 2;
-        const alpha = Math.max(0, Math.min(0.55, 0.55 - avgZ / (SPHERE_RADIUS * 2)));
+        const alpha = Math.max(0.12, Math.min(0.7, 0.65 - avgZ / (SPHERE_RADIUS * 2)));
         context.beginPath();
         context.moveTo(a.sx, a.sy);
         context.lineTo(b.sx, b.sy);
-        context.strokeStyle = `rgba(110, 180, 255, ${alpha})`;
-        context.lineWidth = 0.7;
+        context.strokeStyle = `rgba(0, 255, 170, ${alpha})`;
+        context.lineWidth = 0.95;
         context.stroke();
       });
 
@@ -208,20 +208,20 @@ export const AnimatedBackground: React.FC = () => {
           0,
           Math.min(1, (p.z + SPHERE_RADIUS) / (SPHERE_RADIUS * 2))
         );
-        const r = 1.4 + front * 2.2;
-        const alpha = 0.35 + front * 0.65;
+        const r = 1.6 + front * 2.6;
+        const alpha = 0.45 + front * 0.55;
 
-        const glow = context.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, r * 4);
-        glow.addColorStop(0, `rgba(130, 210, 255, ${alpha * 0.5})`);
-        glow.addColorStop(1, 'rgba(130, 210, 255, 0)');
+        const glow = context.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, r * 4.5);
+        glow.addColorStop(0, `rgba(0, 255, 170, ${alpha * 0.85})`);
+        glow.addColorStop(1, 'rgba(0, 255, 170, 0)');
         context.fillStyle = glow;
         context.beginPath();
-        context.arc(p.sx, p.sy, r * 4, 0, Math.PI * 2);
+        context.arc(p.sx, p.sy, r * 4.5, 0, Math.PI * 2);
         context.fill();
 
         context.beginPath();
         context.arc(p.sx, p.sy, r, 0, Math.PI * 2);
-        context.fillStyle = `rgba(220, 240, 255, ${alpha})`;
+        context.fillStyle = `rgba(230, 255, 245, ${alpha})`;
         context.fill();
       });
 
@@ -232,10 +232,10 @@ export const AnimatedBackground: React.FC = () => {
         0,
         cx,
         cy,
-        SPHERE_RADIUS * 1.1
+        SPHERE_RADIUS * 1.15
       );
-      coreGlow.addColorStop(0, 'rgba(90, 170, 255, 0.18)');
-      coreGlow.addColorStop(1, 'rgba(90, 170, 255, 0)');
+      coreGlow.addColorStop(0, 'rgba(0, 230, 153, 0.28)');
+      coreGlow.addColorStop(1, 'rgba(0, 230, 153, 0)');
       context.fillStyle = coreGlow;
       context.beginPath();
       context.arc(cx, cy, SPHERE_RADIUS * 1.1, 0, Math.PI * 2);
@@ -287,10 +287,10 @@ export const AnimatedBackground: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 pointer-events-none -z-10 overflow-hidden"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
       style={{
         background:
-          'radial-gradient(ellipse at 60% 40%, #1B1440 0%, #0B0A1F 55%, #060512 100%)',
+          'radial-gradient(ellipse at 60% 40%, #063428 0%, #031A14 55%, #020D0A 100%)',
       }}
     >
       <canvas ref={canvasRef} id="c" className="block w-full h-full" />

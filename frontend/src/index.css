@@ -3,20 +3,20 @@
 @tailwind utilities;
 
 :root {
-  /* Backgrounds (Translucent Glassmorphic) */
-  --color-bg-primary: transparent;
-  --color-bg-secondary: rgba(15, 18, 34, 0.55);
-  --color-card-surface: rgba(18, 22, 42, 0.52);
+  /* Backgrounds (Dark Jungle Jade Translucent Glassmorphic) */
+  --color-bg-primary: #020907;
+  --color-bg-secondary: rgba(4, 20, 16, 0.75);
+  --color-card-surface: rgba(6, 24, 19, 0.68);
 
-  /* Text (from Network Globe Hero spec) */
-  --color-text-primary: #EAE8F5;
-  --color-text-secondary: #A9A6C4;
+  /* Text */
+  --color-text-primary: #ECFDF5;
+  --color-text-secondary: #94A3B8;
 
-  /* Accents */
-  --color-accent: #7FD4FF;
-  --color-accent-deep: #2563EB;
-  --color-accent-highlight: #A8E1FF;
-  --color-hairline: rgba(130, 190, 255, 0.22);
+  /* Accents (Jungle Jade Palette) */
+  --color-accent: #00E599;
+  --color-accent-deep: #059669;
+  --color-accent-highlight: #6EE7B7;
+  --color-hairline: rgba(0, 229, 153, 0.22);
 
   /* Motion timing */
   --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
@@ -34,73 +34,73 @@
   }
 
   input, textarea, select {
-    background: rgba(12, 14, 28, 0.6) !important;
+    background: rgba(2, 14, 11, 0.75) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    border: 1px solid rgba(130, 190, 255, 0.22) !important;
-    color: #EAE8F5 !important;
+    border: 1px solid rgba(0, 229, 153, 0.25) !important;
+    color: #ECFDF5 !important;
   }
 
   input:focus, textarea:focus, select:focus {
-    border-color: rgba(127, 212, 255, 0.6) !important;
-    box-shadow: 0 0 15px rgba(127, 212, 255, 0.25) !important;
+    border-color: #00E599 !important;
+    box-shadow: 0 0 18px rgba(0, 229, 153, 0.35) !important;
     outline: none !important;
   }
 }
 
-/* Translucent Primary CTA Button */
+/* Translucent Jungle Jade Primary CTA Button */
 .btn-primary {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.85), rgba(127, 212, 255, 0.85));
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.95), rgba(0, 229, 153, 0.95));
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: #FFFFFF;
   font-weight: 700;
-  border: 1px solid rgba(127, 212, 255, 0.45);
-  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.35);
+  border: 1px solid rgba(110, 231, 183, 0.55);
+  box-shadow: 0 4px 22px rgba(0, 229, 153, 0.38);
   transition: all 200ms var(--ease-standard);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(127, 212, 255, 0.95));
-  border-color: rgba(127, 212, 255, 0.8);
-  box-shadow: 0 6px 28px rgba(127, 212, 255, 0.45);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 1), rgba(52, 211, 153, 1));
+  border-color: rgba(167, 243, 208, 0.85);
+  box-shadow: 0 6px 30px rgba(0, 229, 153, 0.6);
   transform: translateY(-1px);
 }
 
 /* Translucent Glass Secondary Button */
 .btn-secondary {
-  background: rgba(22, 26, 48, 0.55);
+  background: rgba(6, 28, 22, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: var(--color-text-primary);
-  border: 1px solid rgba(130, 190, 255, 0.25);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 229, 153, 0.25);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
   transition: all 200ms var(--ease-standard);
 }
 
 .btn-secondary:hover {
-  background: rgba(130, 190, 255, 0.18);
-  border-color: rgba(130, 190, 255, 0.55);
+  background: rgba(0, 229, 153, 0.16);
+  border-color: rgba(0, 229, 153, 0.6);
   color: #FFFFFF;
-  box-shadow: 0 0 18px rgba(130, 190, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 229, 153, 0.35);
   transform: translateY(-1px);
 }
 
 /* Translucent Glass Cards & Panels */
 .card, .glass-card {
-  background: rgba(14, 16, 32, 0.55);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
-  border: 1px solid rgba(130, 190, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: rgba(4, 20, 16, 0.68);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(0, 229, 153, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.55), 0 0 1px rgba(0, 229, 153, 0.18);
 }
 
 .glass-panel {
-  background: rgba(11, 10, 31, 0.65);
+  background: rgba(3, 14, 11, 0.82);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(130, 190, 255, 0.2);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(0, 229, 153, 0.22);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
 }
 
 /* Canvas host */
@@ -111,23 +111,23 @@
   pointer-events: none;
 }
 
-/* Sleek Bronze Scrollbar */
+/* Sleek Jungle Jade Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0E0F12;
+  background: #020907;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2D271D;
+  background: #059669;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B08D57;
+  background: #00E599;
 }
 
 /* Radar Scanner Beam */
@@ -142,8 +142,8 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #7A6138, #B08D57, #E8CFA3, #B08D57, transparent);
-  box-shadow: 0 0 16px 3px rgba(176, 141, 87, 0.45);
+  background: linear-gradient(90deg, transparent, #047857, #00E599, #6EE7B7, #00E599, #047857, transparent);
+  box-shadow: 0 0 18px 4px rgba(0, 229, 153, 0.55);
   pointer-events: none;
   animation: scan-vertical 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }

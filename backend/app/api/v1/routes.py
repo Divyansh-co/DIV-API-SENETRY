@@ -259,8 +259,8 @@ def get_report_html(test_run_id: str, db: Session = Depends(get_db)):
     <style>
         * {{ box-sizing: border-box; margin: 0; padding: 0; }}
         body {{
-            background-color: #090A0F;
-            color: #FFFFFF;
+            background-color: #020907;
+            color: #ECFDF5;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             padding: 40px 24px;
             line-height: 1.5;
@@ -271,23 +271,23 @@ def get_report_html(test_run_id: str, db: Session = Depends(get_db)):
             justify-content: space-between;
             align-items: flex-start;
             padding-bottom: 24px;
-            border-bottom: 1px solid #331E3D;
+            border-bottom: 1px solid rgba(0, 229, 153, 0.22);
             margin-bottom: 32px;
         }}
         .logo-wrap {{ display: flex; align-items: center; gap: 12px; }}
         .logo-box {{
             width: 44px; height: 44px; border-radius: 10px;
-            background: linear-gradient(135deg, #FF007F, #FF3399);
+            background: linear-gradient(135deg, #059669, #00E599);
             display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 22px; color: white;
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+            font-weight: 800; font-size: 22px; color: #020907;
+            box-shadow: 0 0 20px rgba(0, 229, 153, 0.4);
         }}
-        .title-sub {{ color: #00F0FF; font-size: 13px; margin-top: 4px; }}
+        .title-sub {{ color: #00E599; font-size: 13px; margin-top: 4px; }}
         .print-btn {{
-            background: linear-gradient(135deg, #FF007F, #FF3399);
-            color: white; border: none; padding: 10px 20px;
-            border-radius: 8px; font-weight: 700; cursor: pointer;
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+            background: linear-gradient(135deg, #059669, #00E599);
+            color: #020907; border: none; padding: 10px 20px;
+            border-radius: 8px; font-weight: 800; cursor: pointer;
+            box-shadow: 0 0 15px rgba(0, 229, 153, 0.35);
         }}
         .stats-grid {{
             display: grid;

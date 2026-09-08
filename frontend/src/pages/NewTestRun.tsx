@@ -205,16 +205,16 @@ export const NewTestRun: React.FC<NewTestRunProps> = ({ onRunCreated }) => {
   return (
     <div className="max-w-5xl mx-auto py-8 px-4 sm:px-6">
       {/* Translucent Hero Banner with Living Network Defense Copy */}
-      <div className="mb-8 card p-6 sm:p-8 rounded-3xl relative overflow-hidden backdrop-blur-xl border border-cyan-400/25 shadow-2xl">
+      <div className="mb-8 card p-6 sm:p-8 rounded-3xl relative overflow-hidden backdrop-blur-xl border border-emerald-400/30 shadow-2xl">
         <div className="max-w-2xl relative z-10">
-          <div className="text-[11px] sm:text-xs uppercase tracking-widest font-mono text-[#7FD4FF] mb-2 font-bold flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-[#7FD4FF] animate-ping" />
+          <div className="text-[11px] sm:text-xs uppercase tracking-widest font-mono text-[#00E599] mb-2 font-bold flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-[#00E599] animate-ping" />
             // APISENTRY LIVING DEFENSE NETWORK
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-[#EAE8F5] tracking-tight mb-3 leading-tight">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-[#ECFDF5] tracking-tight mb-3 leading-tight">
             Reimagining defense for the autonomous era
           </h1>
-          <p className="text-sm sm:text-base text-[#A9A6C4] leading-relaxed mb-6">
+          <p className="text-sm sm:text-base text-[#94A3B8] leading-relaxed mb-6">
             A living network that watches, connects, and adapts — visualized in real time. Configure your OpenAPI 3.x specification and test accounts to audit contract conformance and multi-tenant data isolation.
           </p>
 
@@ -222,12 +222,12 @@ export const NewTestRun: React.FC<NewTestRunProps> = ({ onRunCreated }) => {
             <button
               type="button"
               onClick={loadDemoPreset}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl btn-primary text-xs font-bold shadow-lg shadow-cyan-500/25"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl btn-primary text-xs font-bold shadow-lg shadow-emerald-500/25"
             >
               <Sparkles className="w-4 h-4 text-white" />
               <span>Load Demo Target Preset</span>
             </button>
-            <div className="px-3.5 py-2 rounded-xl btn-secondary text-xs font-mono text-cyan-300 flex items-center gap-2 border border-cyan-400/30">
+            <div className="px-3.5 py-2 rounded-xl btn-secondary text-xs font-mono text-emerald-300 flex items-center gap-2 border border-emerald-400/30">
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
               <span>Fibonacci Mesh Telemetry Active</span>
             </div>
