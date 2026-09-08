@@ -1,0 +1,40 @@
+services:
+  # 1. APISentry Testing & Analysis Engine (FastAPI)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: apisentry-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./apisentry.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # 2. APISentry "Cobalt Steel" Dashboard (React + Nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: apisentry-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # 3. Reference Test Fixture API (Intentionally configured demo target)
+  sample-api:
+    build:
+      context: ./sample-api
+      dockerfile: Dockerfile
+    container_name: apisentry-sample-api
+    ports:
+      - "8001:8001"
+    restart: unless-stopped
