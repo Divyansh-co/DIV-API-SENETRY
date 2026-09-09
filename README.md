@@ -1,139 +1,50 @@
-# APISentry — API Security & Contract Testing Platform
+# APISentry
 
-> **Automated OpenAPI Contract Conformance, Schema Drift Detection, & Multi-Tenant Data-Isolation QA Suite**
+A tool that checks whether an API actually behaves the way its OpenAPI/Swagger spec says it does — and whether tenants can accidentally see each other's data.
 
-[![Tests](https://img.shields.io/badge/pytest-8%20passed-3ED9A6?style=for-the-badge&logo=pytest)](file:///./backend/tests)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-2E7DFF?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-18-5AA9FF?style=for-the-badge&logo=react)](https://react.dev)
-[![Docker Compose](https://img.shields.io/badge/Docker-Ready-1B212B?style=for-the-badge&logo=docker)](file:///./docker-compose.yml)
+## Why I built this
 
----
+I originally set out to build a straightforward API security scanner covering stuff from the OWASP API Security Top 10 (broken object-level auth, excessive data exposure, rate limiting gaps, etc). Partway through I ended up reframing it more as a contract/QA testing tool rather than an "attack tool," which honestly made it more useful — instead of just flagging vulnerabilities, it tells you where your API's real behavior has drifted from its documented contract.
 
-## Overview
+Two specific problems this focuses on:
 
-**APISentry** is a developer QA and security configuration platform designed to verify whether an API's actual runtime behavior matches its OpenAPI/Swagger contract, and whether multi-tenant boundary isolation is preserved across distinct tenant accounts.
+1. **Multi-tenant data leakage (BOLA)** — an endpoint that doesn't properly check ownership when a user swaps an ID in the URL and ends up seeing someone else's data.
+2. **Schema drift / excessive data exposure** — endpoints returning extra fields, internal DB ids, or debug info that were never declared in the public API contract.
 
-In modern microservices and SaaS APIs, two classes of bugs frequently slip past static linters:
-1. **Multi-Tenant Data Leakage (BOLA)**: Endpoints that fail to check object ownership when an authorized user swaps an identifier in the path.
-2. **Schema Drift & Excessive Data Exposure**: Endpoints that leak internal fields, database IDs, or debug flags not declared in the public API contract.
+## How it works
 
-APISentry ingests OpenAPI 3.x specifications, synthesizes property-based contract probes, executes them asynchronously, scores compliance, and displays findings in a professional **"Cobalt Steel"** SOC dashboard with printable PDF/HTML audit reports.
+You feed it an OpenAPI 3.x spec. It generates test probes based on that spec (property-based, not hardcoded per-endpoint), runs them against the live API asynchronously, and scores how compliant the actual behavior is against what was documented. Results show up in a dashboard along with exportable PDF/HTML audit reports.
 
----
+## Stack
 
-## Architecture
+- Backend: FastAPI, with the actual test execution running async
+- Frontend: React 18 + TypeScript + Tailwind + Vite
+- Dockerized so the whole thing can spin up in one go
+- Test suite built with pytest (currently all green)
 
-```
-                                    +-------------------------------------------------+
-                                    |         APISentry Frontend Dashboard            |
-                                    |        (React 18 + Tailwind CSS + Vite)         |
-                                    +-------------------------------------------------+
-                                                            |
-                                               REST Calls / JSON Probes
-                                                            v
-+-------------------------------------------------------------------------------------------------------------+
-|                                        APISentry Backend (FastAPI)                                          |
-|                                                                                                             |
-|  +-------------------+        +-----------------------+        +---------------------+                      |
-|  | OpenAPI Parser    | -----> | Test Case Generator   | -----> | Async Runner        |                      |
-|  | ($ref dereference)|        | (Schema + Isolation)  |        | (httpx client)      |                      |
-|  +-------------------+        +-----------------------+        +----------+----------+                      |
-|                                                                           |                                 |
-|                                                                    Probes & Responses                       |
-|                                                                           v                                 |
-|  +-------------------+        +-----------------------+        +---------------------+                      |
-|  | SQLite / DB Store | <----- | Response Comparator   | <------+ Target API Prober   |                      |
-|  | (Runs & Findings) |        | (jsonschema + Leaks)  |        | (http/https)        |                      |
-|  +-------------------+        +-----------------------+        +---------------------+                      |
-+-------------------------------------------------------------------------------------------------------------+
-                                                            |
-                                                  Probes Live Target
-                                                            v
-                                            +-------------------------------+
-                                            |       Target REST API         |
-                                            | (e.g. sample-api fixture:8001)|
-                                            +-------------------------------+
-```
-
-### Core Engine Modules
-- **`SpecParser`**: Ingests JSON or YAML OpenAPI specs, resolves `$ref` JSON Pointers recursively, and extracts routes, parameters, and expected response contracts.
-- **`TestGenerator`**: Property-based probe synthesizer generating:
-  - *Baseline Schema Probes*: Tests valid synthetic payloads against schema rules.
-  - *Undeclared Request Fields*: Tests strict request schema filtering.
-  - *Type Mutation & Input Checks*: Tests that malformed types return graceful 4xx client errors rather than unhandled 500 crashes.
-  - *Multi-Tenant Data Isolation (BOLA)*: Uses Account A and Account B test credentials to probe for cross-tenant resource exposure.
-  - *Rate-Limiting Headers*: Probes for `RateLimit-*` or `X-RateLimit-*` metadata.
-- **`ResponseComparator`**: Validates response JSON with `jsonschema.Draft7Validator`, flags schema drift and undeclared response attributes, detects cross-tenant data leaks, and formats reproducible request/response snapshots.
-- **`HTML/PDF Reporter`**: Generates standalone, printable audit reports with executive scorecards.
-
----
-
-## Quickstart with Docker Compose
-
-Spin up the entire environment (Backend, Frontend Dashboard, and Sample Test Fixture) in one command:
+## Running it
 
 ```bash
+git clone https://github.com/Divyansh-co/DIV-API-SENETRY.git
+cd DIV-API-SENETRY
 docker compose up --build
 ```
 
-### Services Started:
-| Service | URL | Description |
-| :--- | :--- | :--- |
-| **Frontend Dashboard** | `http://localhost:3000` | Cobalt Steel React audit interface |
-| **APISentry Backend** | `http://localhost:8000` | REST API (`/docs`, `/api/v1/testrun`, etc.) |
-| **Sample Target API** | `http://localhost:8001` | Reference fixture with intentional flaws |
+Then point it at an OpenAPI spec (either a local file or a URL) and it'll kick off a new test run from the dashboard.
 
----
+## Current state
 
-## Local Development (Without Docker)
+I self-tested it against its own backend as a sanity check — 24 tests, 0 failures, decent compliance score, and it actually caught a real issue (missing/weak rate limiting on some of its own endpoints), which was a nice validation that the tool works as intended.
 
-### 1. Start Sample Fixture API (Port 8001)
-```powershell
-python apisentry/sample-api/app/main.py
-```
+The dashboard theme has changed a couple times while I was iterating on it (started as "Cobalt Steel," went through a couple of other looks) — cosmetic stuff, not load-bearing.
 
-### 2. Start APISentry Backend (Port 8000)
-```powershell
-uvicorn app.main:app --app-dir apisentry/backend --port 8000 --reload
-```
+## What's still rough
 
-### 3. Start Frontend Dev Server (Port 5173)
-```powershell
-cd apisentry/frontend
-npm run dev
-```
+- Coverage of the full OWASP API Top 10 isn't complete yet — currently strongest on BOLA and schema/contract drift
+- Some endpoints in my own test backend still need better rate limiting (the tool told me so)
+- Report styling/export could use more polish
+- No auth/multi-user support in the dashboard itself yet — it's single-user for now
 
----
+## Why this matters (to me, as a portfolio piece)
 
-## Automated Test Suite
-
-APISentry includes a full pytest suite with 100% pass rate:
-
-```powershell
-python -m pytest apisentry/backend/tests/ -v
-```
-
-### Automated Checks Verified:
-1. `test_spec_parser_dereferences_refs`: Validates recursive `$ref` dereferencing.
-2. `test_test_generator_cases`: Confirms baseline, input validation, undeclared fields, and multi-tenant test generation.
-3. `test_comparator_schema_conformance`: Asserts schema validation and extra-field drift detection.
-4. `test_comparator_data_isolation`: Asserts detection of cross-tenant data leaks.
-5. `test_comparator_unhandled_server_crash`: Flags 500 unhandled errors.
-6. `test_fastapi_endpoints`: Verifies run dispatch, status polling, and historical retrieval.
-7. `test_runner_live_suite_with_demo_app`: Full end-to-end ASGI integration run.
-8. `test_sample_api_intentional_flaws_detection`: Automated audit run against `sample-api` verifying detection of known test flaws.
-
----
-
-## Sample Fixture Discrepancies Detected
-
-The included `sample-api` contains three clearly documented intentional test fixtures:
-1. **Multi-Tenant Data Isolation Bug** (`GET /api/v1/orders/{order_id}`):
-   - Fails to check owner ID against caller credentials, leaking Order #101 to Tenant B with HTTP 200 OK.
-   - Flagged by APISentry as: `CRITICAL` `FAIL` (Multi-Tenant Isolation Failure).
-2. **Schema Drift & Excessive Data Exposure** (`GET /api/v1/accounts/{account_id}/profile`):
-   - Returns undeclared attributes `_internal_cluster_id` and `server_debug_mode` not present in OpenAPI schema.
-   - Flagged by APISentry as: `HIGH` `FAIL` (Schema Drift: Undeclared Fields).
-3. **Unhandled Server Crash on Invalid Input** (`GET /api/v1/reports/summary`):
-   - Submitting non-numeric string to integer query parameter triggers HTTP 500 instead of 422.
-   - Flagged by APISentry as: `HIGH` `FAIL` (Unhandled Server Crash).
+Most student security projects are either "scan for known CVEs" or a toy vulnerable-app demo. This one's closer to something you'd actually use in a CI pipeline — verify a real API's runtime behavior against its own contract before it ships.
